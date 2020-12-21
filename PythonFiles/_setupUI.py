@@ -9,7 +9,7 @@ import tensorflow as tf
 
 
 class PlotCanvas(FigureCanvas):
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
+    def __init__(self, parent=None, width=4, height=4, dpi=100):
         self.noise_dim = 100
         self.num_exp_to_generate = 4
         self.model = tf.keras.models.load_model('../save/WGAN_cartoon_64_0021.h5')
@@ -22,7 +22,7 @@ class PlotCanvas(FigureCanvas):
         self.plot()
 
     def plot(self):
-        self.axes.axis('off')
+        # self.axes.axis('off')
         self.figure.clear()
         seed = tf.random.normal([self.num_exp_to_generate, self.noise_dim])
         predictions = self.model(seed, training=False)
@@ -68,11 +68,11 @@ class Window(QWidget):
         self.setWindowIcon(QIcon('../ico/favicon.ico'))
 
         m = PlotCanvas(self)
-        m.move(70, 90)
+        m.move(130, 110)
         # self.image_shower.setGeometry(20, 10, 600, 600)
 
         self.draw_image_btn = QPushButton('生成图像', self)
-        self.draw_image_btn.setGeometry(250, 620, 131, 41)
+        self.draw_image_btn.setGeometry(260, 560, 131, 41)
         self.draw_image_btn.clicked.connect(m.plot)
         self.draw_image_btn.setStyleSheet("""
             .QPushButton {
